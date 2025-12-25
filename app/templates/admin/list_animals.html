@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Животные в приюте</h2>
+<a href="{{ url_for('admin.add_animal') }}" class="btn">Добавить животное</a>
+
+<table>
+    <tr>
+        <th>Имя</th>
+        <th>Порода</th>
+        <th>Возраст</th>
+        <th>Статус</th>
+        <th>Действия</th>
+    </tr>
+    {% for animal in animals %}
+    <tr>
+        <td>{{ animal.name }}</td>
+        <td>{{ animal.breed }}</td>
+        <td>{{ animal.age }}</td>
+        <td>{{ animal.status }}</td>
+        <td>
+            <a href="{{ url_for('admin.edit_animal', animal_id=animal.id) }}">Редактировать</a>
+            <a href="{{ url_for('admin.delete_animal', animal_id=animal.id) }}" onclick="return confirm('Удалить животное?');">Удалить</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

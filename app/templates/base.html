@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Приют</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Приют для животных</h1>
+            <nav>
+                <a href="{{ url_for('main.index') }}">Главная</a>
+                <a href="{{ url_for('animals.list_animals_user') }}">Животные</a>
+                {% if current_user.is_authenticated %}
+    {% if current_user.is_admin %}
+        <a href="{{ url_for('admin.list_animals') }}">Животные</a>
+        <a href="{{ url_for('admin.stats') }}">Статистика</a>
+    {% else %}
+        <a href="{{ url_for('animals.list_animals_user') }}">Животные</a>
+    {% endif %}
+    <a href="{{ url_for('auth.logout') }}">Выход</a>
+{% else %}
+    <a href="{{ url_for('auth.login') }}">Вход</a>
+    <a href="{{ url_for('auth.register') }}">Регистрация</a>
+{% endif %}
+
+            </nav>
+        </div>
+    </header>
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

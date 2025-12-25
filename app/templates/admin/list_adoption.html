@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Заявки на усыновление</h2>
+
+<table>
+    <tr>
+        <th>Пользователь</th>
+        <th>Животное</th>
+        <th>Сообщение</th>
+        <th>Статус</th>
+        <th>Действия</th>
+    </tr>
+    {% for req in adoptions %}
+    <tr>
+        <td>{{ req.user.username }}</td>
+        <td>{{ req.animal.name }}</td>
+        <td>{{ req.message }}</td>
+        <td>{{ req.status }}</td>
+        <td>
+            {% if req.status == "pending" %}
+            <a href="{{ url_for('admin.approve_adoption', request_id=req.id) }}">Подтвердить</a>
+            <a href="{{ url_for('admin.reject_adoption', request_id=req.id) }}">Отклонить</a>
+            {% else %}
+            -
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

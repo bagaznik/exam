@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Статистика по породам</h2>
+<ul>
+    {% for breed, count in stats.items() %}
+        <li>{{ breed }}: {{ count }} животных</li>
+    {% endfor %}
+</ul>
+<a href="{{ url_for('admin.list_animals') }}">Назад к списку животных</a>
+{% endblock %}

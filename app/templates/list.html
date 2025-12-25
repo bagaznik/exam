@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Животные в приюте</h2>
+
+<!-- Форма фильтров -->
+<form method="get" class="filters">
+    <input type="text" name="breed" placeholder="Порода" value="{{ request.args.get('breed','') }}">
+    <input type="number" name="age" placeholder="Возраст" value="{{ request.args.get('age','') }}">
+    {% set status_filter = request.args.get('status','') %}
+    <select name="status">
+        <option value="" {% if status_filter == '' %}selected{% endif %}>Любой статус</option>
+        <option value="available" {% if status_filter == 'available' %}selected{% endif %}>Доступен</option>
+        <option value="reserved" {% if status_filter == 'reserved' %}selected{% endif %}>Забронирован</option>
+        <option value="adopted" {% if status_filter == 'adopted' %}selected{% endif %}>Усыновлен</option>
+    </select>
+    <button type="submit">Фильтровать</button>
+</form>
+
+<!-- Таблица животных -->
+<table>
+    <tr>
+        <th>Имя</th>
+        <th>Порода</th>
+        <th>Возраст</th>
+        <th>Статус</th>
+        <th>Действие</th>
+    </tr>
+    {% for animal in animals %}
+    <tr>
+        <td>{{ animal.name }}</td>
+        <td>{{ animal.breed }}</td>
+        <td>{{ animal.age }}</td>
+        <td>{{ animal.status }}</td>
+        <td>
+            {% if animal.status == "available" %}
+                <a href="{{ url_for('animals.request_adoption', animal_id=animal.id) }}">Оставить заявку</a>
+            {% else %}
+                -
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

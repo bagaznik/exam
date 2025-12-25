@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Редактировать животное</h2>
+<form method="POST">
+    <label>Имя:</label>
+    <input type="text" name="name" value="{{ animal.name }}" required>
+    <label>Порода:</label>
+    <input type="text" name="breed" value="{{ animal.breed }}" required>
+    <label>Возраст:</label>
+    <input type="number" name="age" value="{{ animal.age }}" required>
+    <label>Статус:</label>
+    <select name="status">
+        <option value="available" {% if animal.status =='available' %}selected{% endif %}>Доступен</option>
+        <option value="adopted" {% if animal.status =='adopted' %}selected{% endif %}>Усыновлен</option>
+        <option value="reserved" {% if animal.status =='reserved' %}selected{% endif %}>Забронирован</option>
+    </select>
+    <button type="submit">Сохранить</button>
+</form>
+{% endblock %}

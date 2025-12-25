@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Добавить животное</h2>
+<form method="POST">
+    <label>Имя:</label>
+    <input type="text" name="name" required>
+    <label>Порода:</label>
+    <input type="text" name="breed" required>
+    <label>Возраст:</label>
+    <input type="number" name="age" required>
+    <label>Статус:</label>
+    <select name="status">
+        <option value="available">Доступен</option>
+        <option value="adopted">Усыновлен</option>
+        <option value="reserved">Забронирован</option>
+    </select>
+    <button type="submit">Добавить</button>
+</form>
+{% endblock %}
